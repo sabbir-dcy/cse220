@@ -3,7 +3,7 @@ public class Main {
     int[] arr = new int[]{5, 2, 9, 5, 0, 0, 2, 5, 7, 3, 4, 3, 7};
     arr = new int[]{4, 3, 7, 2, 5, 8, 0, 0, 0, 3, 5, 2, 7, 3};
     var mod = new Mod(arr);
-    System.out.println(mod.isPalindrome(10, 4));
+    System.out.println(mod.isPalindrome(10, 4, 6));
   }
 }
 
@@ -16,30 +16,29 @@ class Mod {
     this.len = arr.length;
   }
 
-  public Boolean isPalindrome(int start, int end) {
-    if (!isValid(start, end)) {
-      System.out.println("invalid input");
+  public Boolean isPalindrome(int p1, int p2, int start) {
+    int end = (size + start - 1) % arr.length;
+    if (p1 >= arr.length || p1 < 0 || p2 >= arr.length || p2 < 0) {
       return false;
     }
-    if (start < end) {
-      start += end - (end = start);
+    if (p1 < end && p2 > start) {
+      return false;
     }
-
-    int i = 0;
-    int range = (arr.length - start + end + 1) / 2;
+  
+    int i = 0, range;
+    if (p1 < p2) {
+      range = (end - start + 1) / 2;
+    }
+    range = (arr.length - p1 + p2 + 1) / 2;
 
     while (i++ < range) {
-      if (arr[start++] != arr[end--]) {
+      if (arr[p1++] != arr[p2--]) {
         System.out.println("not palindrome");
         return false;
       }
-      start = start % arr.length;
-      end = (end + arr.length) % arr.length;
+      p1 = p1 % arr.length;
+      p2 = (p2 + arr.length) % arr.length;
     }
     return true;
-  }
-
-  private Boolean isValid(int start, int end) {
-    return start >= 0 && start < arr.length && end >= 0 && end < arr.length;
   }
 }
