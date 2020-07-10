@@ -2,22 +2,52 @@ import java.util.Arrays;
 
 public class Main {
   public static void main(String[] args) {
-    int[] arr = {4, 3, 2, 1, 0, 0, 0, 11, 10, 9, 8, 7, 6, 5};
+    int[] arr = {1, 2, 3, 4, 5, 6, 7, 8, 0, 0};
     var modify = new Modify();
-    modify.reverse(arr, 7, 11);
+    modify.rev(arr);
     System.out.println(Arrays.toString(arr));
   }
 }
 
 public class Modify {
-  public void reverse(int[] arr, int head, int size) {
-    int tail = (head + size - 1) % arr.length;
-    int laps = 0;
 
-    while (laps++ < arr.length / 2) {
-      arr[head] += arr[tail] - (arr[tail--] = arr[head++]);
-      head %= arr.length;
-      tail = (tail + arr.length) % arr.length;
+  public void rev(int[] arr) {
+    int len = arr.length, size = 0;
+    int i = len - 1, j = 0;
+    
+    while (true) {
+      if (i < 0) {
+        j = len - 1;
+        i++;
+        break;
+      }
+      if (arr[i] == 0) {
+        j = i;
+        i++;
+        break;
+      }
+      else {
+        i--;
+      }
+    }
+    while (true) {
+      if (arr[j] != 0) {
+        break;
+      }
+      else {
+        j--;
+      }
+    }
+
+    size = len - Math.abs(i - j) % (len - 1) + 1;
+    System.out.println(size);
+    int c = 0;
+
+    while (c++ < size / 2) {
+      // System.out.println(i +" "+ j);
+      arr[i] += arr[j] - (arr[j--] = arr[i++]);
+      i %= len;
+      j = (j + len) % len;
     }
   }
 }
