@@ -36,7 +36,7 @@ class Mod {
         System.out.println("not palindrome");
         return false;
       }
-      p1 = p1 % arr.length;
+      p1 %= arr.length;
       p2 = (p2 + arr.length) % arr.length;
     }
     return true;

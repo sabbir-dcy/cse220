@@ -6,7 +6,7 @@ public class Main {
   public static void main(String[] args) {
     int[] linear = {1, 2, 3, 4, 5, 6, 0, 0, 0, 0};
     var circular = new Circular(linear);
-    int[] circ = circular.convert(8, 6);
+    int[] circ = circular.convert(8);
     System.out.println(Arrays.toString(circ));
   }
 }
@@ -20,12 +20,12 @@ class Circular {
     this.len = linear.length;
   }
 
-  public int[] convert(int start, int size) {
+  public int[] convert(int start) {
     int[] circular = new int[len];
 
-    for (int i = 0; i < size; i++) {
-      circular[start] = linear[i];
-      start = (start + 1) % len;
+    for (int i = 0; i < linear.length; i++) {
+      start = start % len;
+      circular[start++] = linear[i];
     } 
     return circular;
   }
