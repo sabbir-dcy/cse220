@@ -14,12 +14,10 @@ public class Main {
     // System.out.println(head.next.next.element);
   }
 
-  public boolean contains(Node n, Object element) {
+  public static boolean contains(Node n, Object element) {
     for (; n != null; n = n.next)
-      if (n.element.equals(element)) {
-        return true;
-      }
-    return false;
+      if (n.element.equals(element)) return true;
+      return false;
   }
 }
 
