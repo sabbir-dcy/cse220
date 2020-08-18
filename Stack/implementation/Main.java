@@ -3,59 +3,65 @@ import java.util.NoSuchElementException;
 
 public class Main {
   public static void main(String[] args) {
-    var stack = new Stack(7);
-    String name = "AHANAF";
+    var stack = new ArrayStack(7);
+    String name = "AVENGERS";
     for (char c : name.toCharArray()) {
       stack.push(c);
     }
+    // stack.pop();
     // stack.printAll();
     System.out.println(stack.peek());
   }
 }
 
-class Stack {
+public interface Stack {
+  void push(Object data);
+  Object pop();
+  Object peek();
+}
+  
+public class ArrayStack implements Stack {
   Object[] arr;
-  int conter;
+  int counter;
 
-  public Stack() {
+  public ArrayStack() {
     arr = new Object[10];
   }
 
-  public Stack(int size) {
+  public ArrayStack(int size) {
     arr = new Object[size];
   }
 
   public void push(Object data) {
-    if (conter == arr.length) {
+    if (counter == arr.length) {
       resize();
     }
-    arr[arr.length - 1 - conter++] = data;
+    arr[counter++] = data;
   }
 
   private void resize() {
     int len = arr.length * 3 / 2;
     Object[] temp = new Object[len];
 
-    for (int i = arr.length - 1, j = 0; i >= 0; i--) {
-      temp[temp.length - 1 - j++] = arr[i];
+    for (int i = 0; i < counter; i++) {
+      temp[i] = arr[i];
     }
     arr = temp;
   }
 
   public Object peek() {
-    for (Object val : arr) {
-      if (val != null) {
-        return val;
-      }
-    }
-    throw new NoSuchElementException();
+    return counter == 0 ? null : arr[counter - 1];
+  }
+
+  public Object pop() {
+    var removed = arr[counter - 1];
+    arr[counter-- - 1] = null;
+    return removed;
   }
 
   public void printAll() {
-    for (int i = 0; i < arr.length; i++) {
-      if (arr[i] != null) {
-        System.out.println(arr[i]);
-      }
+    for (int i = counter - 1; i >= 0; i--) {
+      System.out.println(arr[i]);
     }
   }
 }

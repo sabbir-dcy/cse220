@@ -10,62 +10,62 @@ public class Main {
 }
 
 class LinkedList<E> {
-  Vertex<E> head, tail;
+  Node<E> head, tail;
 
   public LinkedList() {
-    head = tail = new Vertex<>(null);
+    head = tail = new Node<>(null);
   }
 
   public void addLast(E data) {
-    Vertex<E> vtx = new Vertex<>(data);
+    Node<E> node = new Node<>(data);
     
-    tail.next = vtx;
-    vtx.previous = tail;
-    tail = head.previous = vtx;
+    tail.next = node;
+    node.previous = tail;
+    tail = head.previous = node;
     tail.next = head;
   }
 
   public void removeLast() {
-    Vertex<E> pred = tail.previous;
+    Node<E> pred = tail.previous;
     pred.next = head;
     tail.next = tail.previous = null;
     head.previous = tail = pred;
   }
 
-  public void remove(Vertex<E> vtx) {
-    if (vtx == head) {
+  public void remove(Node<E> node) {
+    if (node == head) {
       throw new IndexOutOfBoundsException();
     }
 
-    vtx.previous.next = vtx.next;
-    vtx.next.previous = vtx.previous;
-    vtx.next = vtx.previous = null;
+    node.previous.next = node.next;
+    node.next.previous = node.previous;
+    node.next = node.previous = null;
     // help gc
-    vtx.data = null;
+    node.data = null;
   }
 
   public void print() {
-    Vertex<E> vtx = head.next;
-    while (vtx != head) {
-      System.out.println(vtx.data);
-      vtx = vtx.next;
+    Node<E> node = head.next;
+    while (node != head) {
+      System.out.println(node.data);
+      node = node.next;
     }
   }
 
   public void printReverse() {
-    Vertex<E> vtx = tail;
-    while (vtx != head) {
-      System.out.println(vtx.data);
-      vtx = vtx.previous;
+    Node<E> node = tail;
+    while (node != head) {
+      System.out.println(node.data);
+      node = node.previous;
     }
   }
 }
 
-class Vertex<E> {
+class Node<E> {
   E data;
-  Vertex<E> previous, next;
+  Node<E> previous, next;
 
-  public Vertex(E data) {
+  public Node(E data) {
     this.data = data;
   }
 }
