@@ -20,6 +20,9 @@ public class Main {
 
 }
 
+/**
+  each Entry object contains one key and one value
+*/
 class Entry<E, T> { // <E> -> type of key & <T> -> is type of the value
   E key;
   T value;
@@ -31,13 +34,20 @@ class Entry<E, T> { // <E> -> type of key & <T> -> is type of the value
 }
 
 class HashTable<E, T> { // <E> -> type of key & <T> -> is type of the value
+  /**
+    hashtable class creates an array of linkedlist
+    each index will have individual linked list of entry
+    each linked list can have multiple entries
+   */
   LinkedList<Entry<E, T>>[] entries;
 
+  // can not create generic type array..thats why supresswarnings
   @SuppressWarnings("unchecked")
   public HashTable() {
     entries = new LinkedList[5];
   }
 
+  // puts value to the hashtable
   public void put(E key, T val) {
     int index = hashCode(key);
 
@@ -57,6 +67,10 @@ class HashTable<E, T> { // <E> -> type of key & <T> -> is type of the value
     list.insert(entry);
   }
 
+  /**
+    array has the limit of size 5 ...so f-hashcode
+    convertst the key and return index beetween array size
+   */
   private int hashCode(E key) {
     String s = String.valueOf(key);
     int hash = 0;
@@ -143,6 +157,10 @@ class LinkedList<T> { // <T> is Entry type
   }
 }
 
+/**
+  each node object contains one entry object
+  and its next node
+*/
 class Node<T> { // T is entry type
   Node<T> next;
   T element;
